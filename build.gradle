@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.8.2'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'  //컴파일 및 실행할 때 써주세요의 의미정도?
+    annotationProcessor('org.projectlombok:lombok')  //에노테이션을 쓸 때 롬북도 봐라의 의미정도?
+
+    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+
+    compileOnly('javax.servlet:javax.servlet-api:4.0.1')
+    implementation 'com.zaxxer:HikariCP:5.0.0'
+    implementation 'org.modelmapper:modelmapper:3.0.0'
+    testImplementation 'org.projectlombok:lombok:1.18.22'
+
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    //DB
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
+
+    // jstl
+    implementation 'jstl:jstl:1.2'
+
+    // cos
+    implementation group: 'com.jfinal', name: 'cos', version: '2022.2'
+
+    // json
+    implementation 'com.googlecode.json-simple:json-simple:1.1'
+
+    // log4j
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.17.2'
+
+    // lombok
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
